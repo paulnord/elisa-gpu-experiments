@@ -10,6 +10,8 @@ This archive preserves the November 2026 CPU and GPU experiments through milesto
 | Native fine-mesh spectra, 32 walkers, two steps, 16 workers | Original CPU 133.01 s, optimized CPU 85.52 s, CPU plus cuBLAS 75.81 s. The sampler trajectory checks passed. | Exact spectral batching improved both paths. On the 1.5° native prediction, spectra accounted for 55.5% of profiled time and surface coverage for 2.9%. Mesh refinement exceeded the light-curve error budget at all 48 tested positions. [Spectra](ada_cublas_native_spectra.md) · [Mesh study](ada_native_mesh_refinement.md) |
 | Curved-surface model, 16 workers, same 16 generation-two proposals | CPU with separate eclipse-phase blocks 2,437.6 s. Evaluating four shared phases once reduced CPU time to 1,953.4 s with identical normalized predictions. GPU fields with the same shared phases took 2,279.1 s. One run per configuration. | Reusing eclipse calculations saved 19.9% end to end on this model. Across both generations CPU and hybrid agreed on 32/32 sampler decisions. Native facets agreed on 16/32 at 12° and 30/32 at 6°. [Scientific results](ada_progress.md) · [Stage timings](hardware_characterization.md) |
 
+**Submitted upstream:** [ELISa PR #33](https://github.com/mikecokina/elisa/pull/33) integrates CPU blackbody batching into the existing fitter. It does not include the CUDA experiments.
+
 The two native studies time different meshes and chain lengths. The curved model recomputes fields and checks sixteen numerical resolutions per in-prior proposal. Compare times within a row. The longest final chain had five transitions. Time to a converged posterior and effective samples per second at matched accuracy remain open.
 
 ## Where to start
